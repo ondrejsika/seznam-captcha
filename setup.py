@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "seznam-captcha",
-    version = "1.0.0",
+    version = "1.2.0",
     url = 'https://github.com/sikaondrej/seznam-captcha/',
     download_url = 'https://github.com/sikaondrej/seznam-captcha/',
     license = 'MIT Licence',
