@@ -1,25 +1,31 @@
 #!/usr/bin/python
 # coding: utf-8
 
-
 import urllib2
-
 import requests
 
 
+URL_ROOT = "http://captcha.seznam.cz"
+
+
 def create():
-    return requests.get("http://captcha.seznam.cz/captcha.create").text
+    return requests.get("%s/captcha.create" % URL_ROOT).text
+
 
 def image_url(key):
-    return "http://captcha.seznam.cz/captcha.getImage?hash="+key
+    return "%s/captcha.getImage?hash=%s" % (URL_ROOT, key)
+
 
 def audio_url(key):
-    return "http://captcha.seznam.cz/captcha.getAudio?hash="+key
+    return "%s/captcha.getAudio?hash=%s" % (URL_ROOT, key)
+
+
+def check_url(key, text):
+    return "%s/captcha.check?hash=%s&code=%s" % (URL_ROOT, key, text)
+
 
 def check(key, text):
-    if requests.get("http://captcha.seznam.cz/captcha.check?hash=%s&code=%s"%(key, text)).status_code == 200:
-        return True
-    return False
+    return requests.get(check_url(key, text)).status_code == 200
 
 
 class Captcha:
@@ -43,11 +49,13 @@ class Captcha:
     def check(self, text):
         if not self.key:
             return False
+
         status = check(self.key, text)
         if self.image_file:
             self.image_file.close()
         if self.audio_file:
             self.audio_file.close()
+
         self.key = None
         self.image_file = None
         self.audio_file = None
