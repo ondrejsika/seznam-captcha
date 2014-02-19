@@ -71,3 +71,7 @@ None
 >>> captcha.check("aljkdew")
 False
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ondrejsika/seznam-captcha/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
